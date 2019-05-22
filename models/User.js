@@ -13,6 +13,10 @@ const UserSchema = new mongoose.Schema({
   avatar: {
     type: String
   },
+  password: {
+    type: String,
+    required: true
+  },
   date: {
     type: Date,
     default: Date.now
