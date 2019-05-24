@@ -1,16 +1,16 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
-const auth = require("../../middleware/auth"); // middleware
+const auth = require("../../middleware/auth");
 const jwt = require("jsonwebtoken");
 const config = require("config");
 const { check, validationResult } = require("express-validator/check");
 
 const User = require("../../models/User");
 
-// @route   GET api/auth
-// @desc    Test route
-// @access  Public
+// @route    GET api/auth
+// @desc     Test route
+// @access   Public
 router.get("/", auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password");
@@ -21,9 +21,9 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
-// @route   POST api/auth
-// @desc    Authenticate user & get token
-// @access  Public
+// @route    POST api/auth
+// @desc     Authenticate user & get token
+// @access   Public
 router.post(
   "/",
   [
@@ -35,26 +35,26 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
+
     const { email, password } = req.body;
 
     try {
       let user = await User.findOne({ email });
+
       if (!user) {
         return res
           .status(400)
           .json({ errors: [{ msg: "Invalid Credentials" }] });
       }
-      // Compare the entered password with the encrypted password
+
       const isMatch = await bcrypt.compare(password, user.password);
 
-      if(!isMatch) {
+      if (!isMatch) {
         return res
           .status(400)
-          // Use the same message to enhance security
           .json({ errors: [{ msg: "Invalid Credentials" }] });
       }
 
-      // Return jsonwebtoken
       const payload = {
         user: {
           id: user.id

@@ -10,12 +10,12 @@ const UserSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  avatar: {
-    type: String
-  },
   password: {
     type: String,
     required: true
+  },
+  avatar: {
+    type: String
   },
   date: {
     type: Date,
@@ -23,4 +23,4 @@ const UserSchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model("user", UserSchema);
+module.exports = User = mongoose.model("user", UserSchema);
