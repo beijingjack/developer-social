@@ -94,7 +94,7 @@ const AddEducation = ({ addEducation, history }) => {
                 toggleDisabled(!toDateDisabled);
               }}
             />{" "}
-            Current Job
+            Current School
           </p>
         </div>
         <div className="form-group">
@@ -126,7 +126,9 @@ const AddEducation = ({ addEducation, history }) => {
   );
 };
 
-AddEducation.propTypes = {};
+AddEducation.propTypes = {
+  addEducation: PropTypes.func.isRequired
+};
 
 export default connect(
   null,
